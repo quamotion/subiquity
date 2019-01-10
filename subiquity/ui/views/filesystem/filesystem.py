@@ -207,7 +207,7 @@ class MountList(WidgetWrap):
                             ('info_minor', "/"),
                             "/".join(mi.split_path[1:]),
                             ]
-            actions = [(_("Unmount"), mi.mount.can_delete(), 'unmount')]
+            actions = []
             menu = ActionMenu(actions)
             connect_signal(menu, 'action', self._mount_action, mi.mount)
             cells = [
@@ -336,27 +336,27 @@ class DeviceList(WidgetWrap):
 
     def _action_menu_for_device(self, device):
         device_actions = []
-        for action in device.supported_actions:
-            label = _(action.value)
-            if action == DeviceAction.REMOVE and device.constructed_device():
-                cd = device.constructed_device()
-                label = _("Remove from {}").format(cd.desc())
-            enabled, whynot = device.action_possible(action)
-            if whynot:
-                assert not enabled
-                enabled = True
-                label += " *"
-                meth = _whynot_shower(self.parent, action, whynot)
-            else:
-                meth_name = '_{}_{}'.format(device.type, action.name)
-                meth = getattr(self, meth_name)
-            if not whynot and action == DeviceAction.DELETE:
-                label = Color.danger_button(ActionMenuOpenButton(label))
-            device_actions.append(Action(
-                label=label,
-                enabled=enabled,
-                value=(action, meth),
-                opens_dialog=getattr(meth, 'opens_dialog', False)))
+#        for action in device.supported_actions:
+#            label = _(action.value)
+#            if action == DeviceAction.REMOVE and device.constructed_device():
+#                cd = device.constructed_device()
+#                label = _("Remove from {}").format(cd.desc())
+#            enabled, whynot = device.action_possible(action)
+#            if whynot:
+#                assert not enabled
+#                enabled = True
+#                label += " *"
+#                meth = _whynot_shower(self.parent, action, whynot)
+#            else:
+#                meth_name = '_{}_{}'.format(device.type, action.name)
+#                meth = getattr(self, meth_name)
+#            if not whynot and action == DeviceAction.DELETE:
+#                label = Color.danger_button(ActionMenuOpenButton(label))
+#            device_actions.append(Action(
+#                label=label,
+#                enabled=enabled,
+#                value=(action, meth),
+#                opens_dialog=getattr(meth, 'opens_dialog', False)))
         menu = ActionMenu(device_actions)
         connect_signal(menu, 'action', self._action, device)
         return menu
@@ -505,8 +505,8 @@ class FilesystemView(BaseView):
             Text(""),
             Padding.push_2(self.avail_list),
             Text(""),
-            Padding.push_2(bp),
-            Text(""),
+#            Padding.push_2(bp),
+#            Text(""),
             Text(""),
             Text(_("USED DEVICES")),
             Text(""),
@@ -529,7 +529,7 @@ class FilesystemView(BaseView):
 
         return [
             self.done,
-            reset_btn(_("Reset"), on_press=self.reset),
+#            reset_btn(_("Reset"), on_press=self.reset),
             back_btn(_("Back"), on_press=self.cancel),
             ]
 
