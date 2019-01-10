@@ -31,16 +31,16 @@ class Subiquity(Application):
     model_class = SubiquityModel
 
     controllers = [
-            "Welcome",
+#            "Welcome",
             "Keyboard",
-            "Installpath",
+#            "Installpath",
             "Network",
             "Proxy",
             "Mirror",
             "Filesystem",
             "Identity",
-            "SSH",
-            "SnapList",
+#            "SSH",
+#            "SnapList",
             "InstallProgress",
     ]
 
