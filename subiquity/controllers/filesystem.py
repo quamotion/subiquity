@@ -50,10 +50,9 @@ class FilesystemController(BaseController):
 
     def default(self):
         self.ui.set_body(GuidedFilesystemView(self))
-        if self.answers['guided']:
-            self.guided(self.answers.get('guided-method', 'direct'))
-        elif self.answers['manual']:
-            self.manual()
+        self.guided(self.answers.get('guided-method', 'direct'))
+        v = GuidedDiskSelectionView(self.model, self, 'direct')
+        self.ui.set_body(v)
 
     def _action_get(self, id):
         dev_spec = id[0].split()
